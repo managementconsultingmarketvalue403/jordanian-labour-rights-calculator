@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<!-- Jordanian Labour Rights Calculator -->
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#071a2f">
+    <meta name="description" content="حاسبة إرشادية للحقوق العمالية وفق قانون العمل الأردني رقم 8 لسنة 1996 وتعديلاته">
+    <meta name="author" content="المحامي محمد الشوحه">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="حاسبة الحقوق العمالية الأردنية">
+    <meta property="og:description" content="حاسبة إرشادية ثنائية اللغة للحقوق العمالية وفق قانون العمل الأردني رقم 8 لسنة 1996 وتعديلاته">
+    <title>حاسبة الحقوق العمالية - قانون العمل الأردني</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="hero">
+            <div class="hero-top">
+                <div class="brand">
+                    <div class="brand-mark" aria-hidden="true">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M24 5v35M13 11h22M9 42h30"/>
+                            <path d="M13 11 7 24h12L13 11Zm22 0-6 13h12L35 11Z"/>
+                            <path d="M7 24c1 4 11 4 12 0M29 24c1 4 11 4 12 0"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="eyebrow" data-i18n="lawName">قانون العمل الأردني رقم 8 لسنة 1996 وتعديلاته</p>
+                        <h1 data-i18n="pageTitle">حاسبة الحقوق العمالية</h1>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a class="law-button"
+                       href="https://www.mol.gov.jo/AR/List/%D8%A7%D9%84%D9%82%D9%88%D8%A7%D9%86%D9%8A%D9%86"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       data-i18n="lawButton">قانون العمل الأردني</a>
+                    <button class="language-button" id="languageButton" type="button" aria-label="تغيير اللغة">English</button>
+                </div>
+            </div>
+            <p class="hero-copy" data-i18n="heroCopy">
+                أدخل البيانات الأساسية أولًا، وستظهر لك الحقول المرتبطة بحالتك فقط. جميع النتائج مبنية على البيانات التي تدخلها.
+            </p>
+        </header>
+
+        <div class="progress-panel" aria-label="نسبة اكتمال البيانات">
+            <div class="progress-track">
+                <div class="progress-value" id="progressValue"></div>
+            </div>
+            <span class="progress-text" id="progressText">البيانات الأساسية 0 من 5</span>
+        </div>
+
+        <div class="layout">
+            <main>
+                <form class="calculator-form" id="calculatorForm" novalidate>
+                    <section class="calc-card" data-card="wage">
+                        <button class="card-head" type="button" aria-expanded="true">
+                            <span class="card-index">1</span>
+                            <span class="card-title">
+                                <h2 data-i18n="wageTitle">الأجر وفرق الأجور</h2>
+                                <p data-i18n="wageSubtitle">حدد طريقة تقاضي الأجر والقيمة الأخيرة</p>
+                            </span>
+                            <span class="card-chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="card-body">
+                            <div class="field-grid">
+                                <div class="field">
+                                    <label for="wageType" data-i18n="wageTypeLabel">طريقة تقاضي الأجر</label>
+                                    <select id="wageType" required>
+                                        <option value="" data-i18n="chooseOption">يرجى الاختيار</option>
+                                        <option value="monthly" data-i18n="monthlyWage">أجر شهري</option>
+                                        <option value="daily" data-i18n="dailyWage">أجر يومي</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="paidWage" id="paidWageLabel">الأجر الأخير الذي كان يتقاضاه العامل</label>
+                                    <input id="paidWage" type="number" min="0" step="0.001" inputmode="decimal" required>
+                                    <p class="field-help" id="paidWageHelp">اختر طريقة تقاضي الأجر أولًا</p>
+                                    <p class="field-help" data-i18n="wageDefinitionNote">أدخل الأجر الأخير المعتمد لاحتساب الحقوق، وليس الراتب الأساسي وحده إذا كان الأجر المستحق يشمل مبالغ ثابتة أخرى.</p>
+                                    <p class="field-help minimum-wage-note" id="minimumWageNote" hidden></p>
+                                </div>
+                                <div class="choice-block full">
+                                    <div class="switch-row">
+                                        <div class="switch-copy">
+                                            <strong data-i18n="wageDifferenceQuestion">هل يوجد فرق أجور لصالح العامل؟</strong>
+                                            <span data-i18n="wageDifferenceHelp">يمكن إضافة أكثر من فترة إذا تغير الأجر</span>
+                                        </div>
+                                        <label class="switch" aria-label="تفعيل فرق الأجور">
+                                            <input id="hasWageDifference" type="checkbox">
+                                            <span aria-hidden="true"></span>
+                                        </label>
+                                    </div>
+                                    <div class="conditional" id="wageDifferenceSection" hidden>
+                                        <div class="field-grid">
+                                            <div class="field">
+                                                <label for="entitledWage" id="entitledWageLabel">الأجر المتفق عليه أو المستحق</label>
+                                                <input id="entitledWage" type="number" min="0" step="0.001" inputmode="decimal">
+                                            </div>
+                                            <div class="info-note">
+                                                <span data-i18n="wageDifferenceInfo">إذا بقي الأجر ثابتًا استخدم فترة واحدة، وإذا تغير أضف فترة أخرى.</span>
+                                            </div>
+                                            <div class="info-note full" data-i18n="wageDifferenceNoRepeat">
+                                                أدخل كل فترة مرة واحدة فقط، ولا تكرر المدة نفسها في أكثر من بطاقة. ولا تدخل الفترة نفسها ضمن الأجور غير المدفوعة وفرق الأجور معًا.
+                                            </div>
+                                            <div class="validation-message full" id="wageDifferenceError"></div>
+                                        </div>
+                                        <div class="period-list" id="wagePeriodList"></div>
+                                        <button class="secondary-button" id="addWagePeriod" type="button" data-i18n="addWagePeriod">إضافة فترة أخرى لفرق الأجور</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="calc-card" data-card="service">
+                        <button class="card-head" type="button" aria-expanded="true">
+                            <span class="card-index">2</span>
+                            <span class="card-title">
+                                <h2 data-i18n="serviceTitle">مدة الخدمة والضمان الاجتماعي</h2>
+                                <p data-i18n="serviceSubtitle">تستخدم المدة في الإجازات ونهاية الخدمة والفصل التعسفي</p>
+                            </span>
+                            <span class="card-chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="card-body">
+                            <div class="field-grid three">
+                                <div class="field">
+                                    <label for="serviceYears" data-i18n="years">السنوات</label>
+                                    <input id="serviceYears" type="number" min="0" step="1" inputmode="numeric" value="0">
+                                </div>
+                                <div class="field">
+                                    <label for="serviceMonths" data-i18n="months">الأشهر</label>
+                                    <input id="serviceMonths" type="number" min="0" max="11" step="1" inputmode="numeric" value="0">
+                                </div>
+                                <div class="field">
+                                    <label for="serviceDays" data-i18n="days">الأيام</label>
+                                    <input id="serviceDays" type="number" min="0" max="30" step="1" inputmode="numeric" value="0">
+                                </div>
+                                <div class="field full">
+                                    <label for="socialSecurity" data-i18n="socialSecurity">حالة الاشتراك بالضمان الاجتماعي</label>
+                                    <select id="socialSecurity" required>
+                                        <option value="" data-i18n="chooseSocialSecurity">يرجى تحديد حالة الاشتراك</option>
+                                        <option value="yes" data-i18n="subscribed">مشترك بالضمان الاجتماعي</option>
+                                        <option value="no" data-i18n="notSubscribed">غير مشترك بالضمان الاجتماعي</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="calc-card" data-card="contract">
+                        <button class="card-head" type="button" aria-expanded="true">
+                            <span class="card-index">3</span>
+                            <span class="card-title">
+                                <h2 data-i18n="contractTitle">العقد وانتهاء العمل</h2>
+                                <p data-i18n="contractSubtitle">تظهر التفاصيل المناسبة حسب نوع العقد</p>
+                            </span>
+                            <span class="card-chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="card-body">
+                            <div class="field-grid">
+                                <div class="field">
+                                    <label for="contractType" data-i18n="contractType">نوع عقد العمل</label>
+                                    <select id="contractType" required>
+                                        <option value="" data-i18n="chooseOption">يرجى الاختيار</option>
+                                        <option value="indefinite" data-i18n="indefiniteContract">عقد غير محدد المدة</option>
+                                        <option value="definite" data-i18n="definiteContract">عقد محدد المدة</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="terminationBy" data-i18n="terminationBy">طريقة انتهاء عقد العمل</label>
+                                    <select id="terminationBy" required>
+                                        <option value="" data-i18n="chooseOption">يرجى الاختيار</option>
+                                        <option value="employer" data-i18n="endedByEmployer">أنهى صاحب العمل العقد</option>
+                                        <option value="worker" data-i18n="endedByWorker">أنهى العامل العقد</option>
+                                        <option value="mutual" data-i18n="endedMutually">انتهى باتفاق الطرفين</option>
+                                        <option value="expired" data-i18n="contractExpired">انتهت مدة العقد</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="conditional" id="fixedContractSection" hidden>
+                                <div class="info-note" data-i18n="fixedContractInfo">
+                                    تُحتسب المدة المتبقية فقط عند اختيار أن صاحب العمل أنهى العقد المحدد قبل انتهاء مدته.
+                                </div>
+                                <div class="field-grid" style="margin-top: 14px;">
+                                    <div class="field">
+                                        <label for="contractDurationMonths" data-i18n="contractDurationMonths">مدة العقد الكاملة بالأشهر</label>
+                                        <input id="contractDurationMonths" type="number" min="0" step="1" inputmode="numeric" value="0">
+                                    </div>
+                                    <div class="field">
+                                        <label for="contractDurationDays" data-i18n="contractDurationDays">الأيام الإضافية في مدة العقد</label>
+                                        <input id="contractDurationDays" type="number" min="0" max="30" step="1" inputmode="numeric" value="0">
+                                    </div>
+                                    <div class="field">
+                                        <label for="contractWorkedMonths" data-i18n="contractWorkedMonths">الأشهر التي عملها العامل</label>
+                                        <input id="contractWorkedMonths" type="number" min="0" step="1" inputmode="numeric" value="0">
+                                    </div>
+                                    <div class="field">
+                                        <label for="contractWorkedDays" data-i18n="contractWorkedDays">الأيام الإضافية التي عملها</label>
+                                        <input id="contractWorkedDays" type="number" min="0" max="30" step="1" inputmode="numeric" value="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="conditional" id="indefiniteContractSection" hidden>
+                                <div class="field-grid" style="margin-top: 14px;">
+                                    <div class="choice-block full">
+                                        <span class="field-label" data-i18n="noticeMode">بدل الإشعار عند إنهاء صاحب العمل للعقد</span>
+                                        <div class="choice-row">
+                                            <div class="choice">
+                                                <input id="noticeNone" name="noticeMode" type="radio" value="none" checked>
+                                                <label for="noticeNone" data-i18n="noNoticeClaim">حصل على إشعار كامل أو لا يريد احتسابه</label>
+                                            </div>
+                                            <div class="choice">
+                                                <input id="noticeFull" name="noticeMode" type="radio" value="full">
+                                                <label for="noticeFull" data-i18n="fullNotice">لم يحصل على إشعار — احتساب شهر كامل</label>
+                                            </div>
+                                            <div class="choice">
+                                                <input id="noticePartial" name="noticeMode" type="radio" value="partial">
+                                                <label for="noticePartial" data-i18n="partialNotice">إشعار جزئي</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field full" id="partialNoticeSection" hidden>
+                                        <label for="noticeDaysReceived" data-i18n="noticeDaysReceived">عدد أيام الإشعار التي حصل عليها العامل</label>
+                                        <input id="noticeDaysReceived" type="number" min="0" max="30" step="1" inputmode="numeric" value="0">
+                                    </div>
+                                    <div class="choice-block full" id="arbitraryDismissalSection" hidden>
+                                        <div class="switch-row">
+                                            <div class="switch-copy">
+                                                <strong data-i18n="arbitraryDismissalQuestion">احتساب بدل الفصل التعسفي استرشاديًا</strong>
+                                                <span data-i18n="arbitraryDismissalHelp">نصف شهر عن كل سنة وبحد أدنى أجر شهرين</span>
+                                            </div>
+                                            <label class="switch" aria-label="احتساب بدل الفصل التعسفي">
+                                                <input id="includeArbitraryDismissal" type="checkbox">
+                                                <span aria-hidden="true"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="validation-message" id="contractError"></div>
+                        </div>
+                    </section>
+
+                    <section class="calc-card is-collapsed" data-card="unpaid">
+                        <button class="card-head" type="button" aria-expanded="false">
+                            <span class="card-index">4</span>
+                            <span class="card-title">
+                                <h2 data-i18n="unpaidTitle">الرواتب غير المدفوعة</h2>
+                                <p data-i18n="unpaidSubtitle">أدخل الأشهر والأيام التي لم يستلم العامل أجرها</p>
+                            </span>
+                            <span class="card-chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="card-body">
+                            <div class="field-grid">
+                                <div class="field">
+                                    <label for="unpaidMonths" data-i18n="unpaidMonths">الأشهر غير المدفوعة</label>
+                                    <input id="unpaidMonths" type="number" min="0" step="1" inputmode="numeric" value="0">
+                                </div>
+                                <div class="field">
+                                    <label for="unpaidDays" data-i18n="unpaidDays">الأيام غير المدفوعة</label>
+                                    <input id="unpaidDays" type="number" min="0" max="30" step="1" inputmode="numeric" value="0">
+                                </div>
+                                <div class="info-note full" data-i18n="unpaidDifferenceWarning">
+                                    الأجر غير المدفوع يعني أن العامل لم يستلم أجر الفترة أصلًا. لا تدخل الفترة نفسها ضمن فرق الأجور.
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="calc-card is-collapsed" data-card="vacation">
+                        <button class="card-head" type="button" aria-expanded="false">
+                            <span class="card-index">5</span>
+                            <span class="card-title">
+                                <h2 data-i18n="vacationTitle">الإجازات السنوية</h2>
+                                <p data-i18n="vacationSubtitle">14 يومًا في السنوات الخمس الأولى و21 يومًا من السنة السادسة</p>
+                            </span>
+                            <span class="card-chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="card-body">
+                            <div class="switch-row">
+                                <div class="switch-copy">
+                                    <strong data-i18n="includeVacation">احتساب بدل الإجازات</strong>
+                                    <span data-i18n="vacationAuto">يُحسب الرصيد تلقائيًا وفق مدة الخدمة</span>
+                                </div>
+                                <label class="switch" aria-label="احتساب بدل الإجازات">
+                                    <input id="includeVacation" type="checkbox">
+                                    <span aria-hidden="true"></span>
+                                </label>
+                            </div>
+                            <div class="conditional" id="vacationSection" hidden>
+                                <div class="field-grid">
+                                    <div class="field">
+                                        <label for="vacationAccruedDays" data-i18n="vacationAccruedDays">الإجازات المحتسبة تلقائيًا</label>
+                                        <input id="vacationAccruedDays" type="number" readonly>
+                                    </div>
+                                    <div class="field">
+                                        <label for="takenVacationDays" data-i18n="takenVacationDays">الإجازات التي حصل عليها العامل خلال آخر سنتين</label>
+                                        <input id="takenVacationDays" type="number" min="0" step="0.5" inputmode="decimal" value="0">
+                                    </div>
+                                    <div class="field">
+                                        <label for="additionalVacationDays" data-i18n="additionalVacationDays">أيام إضافية مستحقة وفق اتفاق</label>
+                                        <input id="additionalVacationDays" type="number" min="0" step="0.5" inputmode="decimal" value="0">
+                                    </div>
+                                    <div class="field">
+                                        <label for="vacationDueDays" data-i18n="vacationDueDays">أيام الإجازة المستحقة بعد الخصم</label>
+                                        <input id="vacationDueDays" type="number" readonly>
+                                    </div>
+                                </div>
+                                <div class="validation-message" id="vacationError"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="calc-card is-collapsed" data-card="overtime">
+                        <button class="card-head" type="button" aria-expanded="false">
+                            <span class="card-index">6</span>
+                            <span class="card-title">
+                                <h2 data-i18n="overtimeTitle">العمل الإضافي</h2>
+                                <p data-i18n="overtimeSubtitle">يحتسب على أساس ثماني ساعات يوميًا</p>
+                            </span>
+                            <span class="card-chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="card-body">
+                            <div class="switch-row">
+                                <div class="switch-copy">
+                                    <strong data-i18n="includeOvertime">احتساب ساعات العمل الإضافي</strong>
+                                    <span data-i18n="overtimeRate">بنسبة 125 بالمئة من أجر الساعة المعتاد</span>
+                                </div>
+                                <label class="switch" aria-label="احتساب العمل الإضافي">
+                                    <input id="includeOvertime" type="checkbox">
+                                    <span aria-hidden="true"></span>
+                                </label>
+                            </div>
+                            <div class="conditional" id="overtimeSection" hidden>
+                                <div class="choice-block full">
+                                    <span class="field-label" data-i18n="overtimeEntryMode">طريقة إدخال الساعات</span>
+                                    <div class="choice-row">
+                                        <div class="choice">
+                                            <input id="overtimeAuto" name="overtimeMode" type="radio" value="auto" checked>
+                                            <label for="overtimeAuto" data-i18n="calculateFromDays">حسب الأيام</label>
+                                        </div>
+                                        <div class="choice">
+                                            <input id="overtimeManual" name="overtimeMode" type="radio" value="manual">
+                                            <label for="overtimeManual" data-i18n="monthlyHoursDirect">ساعات شهرية مباشرة</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field-grid" id="overtimeAutoFields" style="margin-top: 14px;">
+                                    <div class="field">
+                                        <label for="overtimeHoursPerDay" data-i18n="overtimeHoursPerDay">الساعات الإضافية في اليوم</label>
+                                        <input id="overtimeHoursPerDay" type="number" min="0" step="0.25" inputmode="decimal" value="0">
+                                    </div>
+                                    <div class="field">
+                                        <label for="overtimeDaysPerMonth" data-i18n="overtimeDaysPerMonth">عدد أيام تكرارها في الشهر</label>
+                                        <input id="overtimeDaysPerMonth" type="number" min="0" step="1" inputmode="numeric" value="0">
+                                    </div>
+                                </div>
+                                <div class="field-grid" style="margin-top: 14px;">
+                                    <div class="field" id="overtimeManualField" hidden>
+                                        <label for="overtimeHoursPerMonth" data-i18n="overtimeHoursPerMonth">إجمالي الساعات الإضافية في الشهر</label>
+                                        <input id="overtimeHoursPerMonth" type="number" min="0" step="0.25" inputmode="decimal" value="0">
+                                    </div>
+                                    <div class="field">
+                                        <label for="overtimeMonths" data-i18n="overtimeMonths">عدد الأشهر التي تكرر خلالها العمل الإضافي</label>
+                                        <input id="overtimeMonths" type="number" min="0" step="1" inputmode="numeric" value="1">
+                                        <p class="field-help" data-i18n="overtimeMonthDefault">شهر واحد افتراضيًا حتى لا تضيع الساعات المدخلة</p>
+                                    </div>
+                                    <div class="field">
+                                        <label for="totalOvertimeHours" data-i18n="totalOvertimeHours">إجمالي الساعات المحتسبة</label>
+                                        <input id="totalOvertimeHours" type="number" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="calc-card is-collapsed" data-card="holidays">
+                        <button class="card-head" type="button" aria-expanded="false">
+                            <span class="card-index">7</span>
+                            <span class="card-title">
+                                <h2 data-i18n="holidaysTitle">العطل الرسمية والعطلة الأسبوعية</h2>
+                                <p data-i18n="holidaysSubtitle">أيام العطل التي عمل فيها العامل</p>
+                            </span>
+                            <span class="card-chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="card-body">
+                            <div class="switch-row">
+                                <div class="switch-copy">
+                                    <strong data-i18n="includeHolidays">احتساب العمل في أيام العطل</strong>
+                                    <span data-i18n="holidayRate">بنسبة 150 بالمئة من الأجر المعتاد</span>
+                                </div>
+                                <label class="switch" aria-label="احتساب العمل في العطل">
+                                    <input id="includeHolidays" type="checkbox">
+                                    <span aria-hidden="true"></span>
+                                </label>
+                            </div>
+                            <div class="conditional" id="holidaysSection" hidden>
+                                <div class="choice-block full">
+                                    <span class="field-label" data-i18n="holidayEntryMode">طريقة إدخال العمل في العطل</span>
+                                    <div class="choice-row">
+                                        <div class="choice">
+                                            <input id="holidayByDays" name="holidayMode" type="radio" value="days" checked>
+                                            <label for="holidayByDays" data-i18n="holidayByDays">حسب الأيام</label>
+                                        </div>
+                                        <div class="choice">
+                                            <input id="holidayByHours" name="holidayMode" type="radio" value="hours">
+                                            <label for="holidayByHours" data-i18n="holidayByHours">حسب الساعات</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field-grid" id="holidayDayFields">
+                                    <div class="field">
+                                        <label for="officialHolidayDays" data-i18n="officialHolidayDays">أيام العطل الرسمية والأعياد</label>
+                                        <input id="officialHolidayDays" type="number" min="0" step="1" inputmode="numeric" value="0">
+                                    </div>
+                                    <div class="field">
+                                        <label for="weeklyRestDays" data-i18n="weeklyRestDays">أيام العطلة الأسبوعية التي عمل فيها العامل</label>
+                                        <input id="weeklyRestDays" type="number" min="0" step="1" inputmode="numeric" value="0">
+                                        <p class="field-help" data-i18n="weeklyRestHelp">الجمعة عادةً، أو أي يوم آخر معتمد كعطلة أسبوعية</p>
+                                    </div>
+                                </div>
+                                <div class="field-grid" id="holidayHourFields" hidden>
+                                    <div class="field">
+                                        <label for="officialHolidayHours" data-i18n="officialHolidayHours">ساعات العمل في العطل الرسمية والأعياد</label>
+                                        <input id="officialHolidayHours" type="number" min="0" step="0.25" inputmode="decimal" value="0">
+                                    </div>
+                                    <div class="field">
+                                        <label for="weeklyRestHours" data-i18n="weeklyRestHours">ساعات العمل في أيام الراحة الأسبوعية</label>
+                                        <input id="weeklyRestHours" type="number" min="0" step="0.25" inputmode="decimal" value="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="calc-card is-collapsed" data-card="annual-salaries">
+                        <button class="card-head" type="button" aria-expanded="false">
+                            <span class="card-index">8</span>
+                            <span class="card-title">
+                                <h2 data-i18n="annualSalariesTitle">الرواتب السنوية بعد الراتب الثاني عشر</h2>
+                                <p data-i18n="annualSalariesSubtitle">مثل الراتب الثالث عشر والرابع عشر</p>
+                            </span>
+                            <span class="card-chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="card-body">
+                            <div class="switch-row">
+                                <div class="switch-copy">
+                                    <strong data-i18n="annualSalariesQuestion">هل يستحق العامل أكثر من اثني عشر راتبًا خلال السنة؟</strong>
+                                    <span data-i18n="annualSalariesClarification">المقصود الرواتب السنوية التي تمنحها الشركة، وليس بدل الساعات الإضافية أو العطل</span>
+                                </div>
+                                <label class="switch" aria-label="تفعيل الرواتب السنوية">
+                                    <input id="includeAnnualSalaries" type="checkbox">
+                                    <span aria-hidden="true"></span>
+                                </label>
+                            </div>
+                            <div class="conditional" id="annualSalariesSection" hidden>
+                                <div class="field-grid">
+                                    <div class="field">
+                                        <label for="annualSalaryCount" data-i18n="annualSalaryCount">عدد الرواتب السنوية المستحقة للعامل</label>
+                                        <select id="annualSalaryCount">
+                                            <option value="13">13 راتبًا سنويًا</option>
+                                            <option value="14">14 راتبًا سنويًا</option>
+                                            <option value="15">15 راتبًا سنويًا</option>
+                                            <option value="16">16 راتبًا سنويًا</option>
+                                        </select>
+                                    </div>
+                                    <div class="field" style="align-self: end;">
+                                        <button class="secondary-button" id="addAnnualSalary" type="button" data-i18n="addAnnualSalary">إضافة راتب سنوي آخر</button>
+                                    </div>
+                                </div>
+                                <div class="annual-salary-list" id="annualSalaryList"></div>
+                                <div class="validation-message" id="annualSalaryError"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="calc-card is-collapsed" data-card="savings">
+                        <button class="card-head" type="button" aria-expanded="false">
+                            <span class="card-index">9</span>
+                            <span class="card-title">
+                                <h2 data-i18n="savingsTitle">مستحقات الصناديق</h2>
+                                <p data-i18n="savingsSubtitle">صندوق الادخار أو التوفير أو التقاعد أو صندوق مماثل</p>
+                            </span>
+                            <span class="card-chevron" aria-hidden="true"></span>
+                        </button>
+                        <div class="card-body">
+                            <div class="switch-row">
+                                <div class="switch-copy">
+                                    <strong data-i18n="includeSavings">هل توجد مستحقات في صندوق للعامل؟</strong>
+                                    <span data-i18n="savingsHelp">أدخل صافي المبلغ المستحق وفق بيانات الصندوق</span>
+                                </div>
+                                <label class="switch" aria-label="إضافة الرصيد الادخاري">
+                                    <input id="includeSavings" type="checkbox">
+                                    <span aria-hidden="true"></span>
+                                </label>
+                            </div>
+                            <div class="conditional" id="savingsSection" hidden>
+                                <div class="field">
+                                    <label for="savingsBalance" data-i18n="savingsBalance">صافي مستحقات الصندوق بالدينار</label>
+                                    <input id="savingsBalance" type="number" min="0" step="0.001" inputmode="decimal" value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="validation-message" id="formError"></div>
+                    <div class="form-actions">
+                        <button class="primary-button" type="submit" data-i18n="calculate">احسب المستحقات</button>
+                        <button class="ghost-button" id="resetButton" type="button" data-i18n="reset">تفريغ الحقول</button>
+                    </div>
+                </form>
+
+                <section class="result-panel" id="resultPanel" aria-live="polite">
+                    <div class="result-head">
+                        <div>
+                            <h2 data-i18n="resultsTitle">نتائج حساب المستحقات</h2>
+                            <p data-i18n="resultsSubtitle">تفصيل المبالغ والمعادلات المستخدمة</p>
+                        </div>
+                        <div class="result-total">
+                            <span data-i18n="total">الإجمالي</span>
+                            <strong id="grandTotal">0.00 دينار</strong>
+                        </div>
+                    </div>
+                    <div class="result-content" id="resultContent"></div>
+                    <div class="result-footer">
+                        <div class="legal-disclaimer" data-i18n="legalDisclaimer">
+                            تنبيه: هذه الحاسبة أداة إرشادية غير ملزمة، وتعتمد نتائجها على صحة البيانات والخيارات التي أدخلها المستخدم.
+                        </div>
+                        <button class="ghost-button" id="printButton" type="button" data-i18n="print">طباعة النتائج</button>
+                    </div>
+                </section>
+            </main>
+
+            <aside class="side-panel">
+                <section class="side-card">
+                    <h2 data-i18n="howItWorks">طريقة الاستخدام</h2>
+                    <p data-i18n="howItWorksText">ابدأ بالبطاقات الثلاث الأولى، ثم افتح فقط الحقوق التي تريد احتسابها.</p>
+                </section>
+                <section class="side-card">
+                    <h2 data-i18n="legalReferences">المواد المرتبطة بالحساب</h2>
+                    <p data-i18n="legalReferencesText">يعرض قسم النتائج المادة المرتبطة بكل حق تم احتسابه.</p>
+                    <div class="law-pill-list" id="lawPillList" aria-label="المواد القانونية">
+                        <span class="law-pill" data-article="23">المادة 23</span>
+                        <span class="law-pill" data-article="25">المادة 25</span>
+                        <span class="law-pill" data-article="26">المادة 26</span>
+                        <span class="law-pill" data-article="32">المادة 32</span>
+                        <span class="law-pill" data-article="33">المادة 33</span>
+                        <span class="law-pill" data-article="46">المادة 46</span>
+                        <span class="law-pill" data-article="59">المادة 59</span>
+                        <span class="law-pill" data-article="61">المادة 61</span>
+                        <span class="law-pill" data-article="63">المادة 63</span>
+                    </div>
+                </section>
+            </aside>
+        </div>
+
+        <footer class="footer">
+            <strong data-i18n="createdBy">أنشئت بواسطة المحامي محمد الشوحه</strong>
+            <div data-i18n="footerLaw">وفق قانون العمل الأردني رقم 8 لسنة 1996 وتعديلاته</div>
+        </footer>
+    </div>
+
+    <script src="calculator-engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

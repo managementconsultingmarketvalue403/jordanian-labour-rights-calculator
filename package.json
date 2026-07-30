@@ -1,0 +1,11 @@
+{
+  "name": "jordanian-labour-rights-calculator",
+  "version": "1.0.0",
+  "description": "Bilingual Jordanian labour rights calculator",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node tests/calculator-engine.test.js && node tests/calculator-comprehensive.test.js && node tests/ui-structure.test.js"
+  }
+}
+
