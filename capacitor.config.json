@@ -1,0 +1,10 @@
+{
+  "appId": "com.mohammadalshouha.labourrights",
+  "appName": "حاسبة الحقوق العمالية",
+  "webDir": "www",
+  "backgroundColor": "#f3f6f9",
+  "android": {
+    "backgroundColor": "#f3f6f9",
+    "allowMixedContent": false
+  }
+}

@@ -6,7 +6,24 @@
 
 [فتح الحاسبة المنشورة](https://jordanian-labour-rights-calculator.netlify.app/)
 
+[تنزيل النسخة التجريبية لتطبيق أندرويد](https://github.com/mohammedjaferalshouha/jordanian-labour-rights-calculator/releases/tag/v1.1.0-beta.1)
+
 ![واجهة الحاسبة العربية](docs/screenshots/desktop-ar.png)
+
+## تطبيق أندرويد
+
+- يعمل محليًا على الهاتف بعد التثبيت، ولا يحتاج إلى الموقع لإجراء الحسابات.
+- يدعم أندرويد 7 وما بعده.
+- رابط قانون العمل يفتح المصدر الرسمي في متصفح الهاتف ويحتاج إلى اتصال بالإنترنت.
+- النسخة الحالية تجريبية لاختبارها على الأجهزة الفعلية قبل اعتماد توقيع الإصدار النهائي.
+- راجع [دليل أندرويد](ANDROID.md) للتثبيت والبناء والتحقق.
+- راجع [سياسة الخصوصية](PRIVACY.md).
+
+## صور تطبيق أندرويد
+
+| الواجهة العربية | الواجهة الإنجليزية | مثال النتائج |
+|---|---|---|
+| ![تطبيق أندرويد بالعربية](docs/screenshots/android-ar.png) | ![تطبيق أندرويد بالإنجليزية](docs/screenshots/android-en.png) | ![نتائج تطبيق أندرويد](docs/screenshots/android-results.png) |
 
 ## المزايا
 
@@ -96,7 +113,24 @@ A bilingual, browser-based calculator that provides indicative calculations for 
 
 [Open the live calculator](https://jordanian-labour-rights-calculator.netlify.app/)
 
+[Download the Android testing release](https://github.com/mohammedjaferalshouha/jordanian-labour-rights-calculator/releases/tag/v1.1.0-beta.1)
+
 ![Arabic calculator interface](docs/screenshots/desktop-ar.png)
+
+## Android application
+
+- Runs locally after installation and does not require the website for calculations.
+- Supports Android 7 and newer.
+- The Labour Law button opens the official source in the phone browser and requires internet access.
+- The current package is a testing release for real-device validation before producing the final release signature.
+- See the [Android guide](ANDROID.md) for installation, build and verification instructions.
+- See the [privacy policy](PRIVACY.md).
+
+## Android screenshots
+
+| Arabic interface | English interface | Results example |
+|---|---|---|
+| ![Arabic Android application](docs/screenshots/android-ar.png) | ![English Android application](docs/screenshots/android-en.png) | ![Android results](docs/screenshots/android-results.png) |
 
 ## Features
 

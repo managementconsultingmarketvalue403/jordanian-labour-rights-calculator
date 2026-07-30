@@ -1,11 +1,21 @@
 {
   "name": "jordanian-labour-rights-calculator",
-  "version": "1.0.0",
+  "version": "1.1.0-beta.1",
   "description": "Bilingual Jordanian labour rights calculator",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "test": "node tests/calculator-engine.test.js && node tests/calculator-comprehensive.test.js && node tests/ui-structure.test.js"
+    "test": "node tests/calculator-engine.test.js && node tests/calculator-comprehensive.test.js && node tests/ui-structure.test.js",
+    "prepare:android": "node scripts/prepare-android-web.mjs",
+    "prepare:site": "node scripts/prepare-site-web.mjs",
+    "android:sync": "npm run prepare:android && cap sync android && python scripts/generate-android-assets.py",
+    "android:build:debug": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-android-debug.ps1"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.4.2",
+    "@capacitor/core": "^8.4.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.4.2"
   }
 }
-
