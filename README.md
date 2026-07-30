@@ -6,7 +6,7 @@
 
 [فتح الحاسبة المنشورة](https://jordanian-labour-rights-calculator.netlify.app/)
 
-[تنزيل النسخة التجريبية لتطبيق أندرويد](https://github.com/mohammedjaferalshouha/jordanian-labour-rights-calculator/releases/tag/v1.1.0-beta.1)
+[تنزيل الإصدار الرسمي لتطبيق أندرويد](https://github.com/mohammedjaferalshouha/jordanian-labour-rights-calculator/releases/tag/v1.1.0)
 
 ![واجهة الحاسبة العربية](docs/screenshots/desktop-ar.png)
 
@@ -15,7 +15,7 @@
 - يعمل محليًا على الهاتف بعد التثبيت، ولا يحتاج إلى الموقع لإجراء الحسابات.
 - يدعم أندرويد 7 وما بعده.
 - رابط قانون العمل يفتح المصدر الرسمي في متصفح الهاتف ويحتاج إلى اتصال بالإنترنت.
-- النسخة الحالية تجريبية لاختبارها على الأجهزة الفعلية قبل اعتماد توقيع الإصدار النهائي.
+- النسخة الحالية إصدار رسمي موقع بمفتاح نشر دائم خاص بالمشروع.
 - راجع [دليل أندرويد](ANDROID.md) للتثبيت والبناء والتحقق.
 - راجع [سياسة الخصوصية](PRIVACY.md).
 
@@ -113,7 +113,7 @@ A bilingual, browser-based calculator that provides indicative calculations for 
 
 [Open the live calculator](https://jordanian-labour-rights-calculator.netlify.app/)
 
-[Download the Android testing release](https://github.com/mohammedjaferalshouha/jordanian-labour-rights-calculator/releases/tag/v1.1.0-beta.1)
+[Download the official Android release](https://github.com/mohammedjaferalshouha/jordanian-labour-rights-calculator/releases/tag/v1.1.0)
 
 ![Arabic calculator interface](docs/screenshots/desktop-ar.png)
 
@@ -122,7 +122,7 @@ A bilingual, browser-based calculator that provides indicative calculations for 
 - Runs locally after installation and does not require the website for calculations.
 - Supports Android 7 and newer.
 - The Labour Law button opens the official source in the phone browser and requires internet access.
-- The current package is a testing release for real-device validation before producing the final release signature.
+- The current package is an official release signed with the project's permanent release key.
 - See the [Android guide](ANDROID.md) for installation, build and verification instructions.
 - See the [privacy policy](PRIVACY.md).
 

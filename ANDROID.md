@@ -2,9 +2,9 @@
 
 # تطبيق أندرويد
 
-## تنزيل النسخة التجريبية
+## تنزيل الإصدار الرسمي
 
-يمكن تنزيل أحدث نسخة اختبار من [صفحة الإصدارات](https://github.com/mohammedjaferalshouha/jordanian-labour-rights-calculator/releases).
+يمكن تنزيل أحدث إصدار رسمي من [صفحة الإصدارات](https://github.com/mohammedjaferalshouha/jordanian-labour-rights-calculator/releases).
 
 ## التثبيت
 
@@ -28,10 +28,11 @@
 ```powershell
 npm install
 npm test
-npm run android:build:debug
+npm run android:signing:create
+npm run android:build:release
 ```
 
-تظهر نسخة الاختبار داخل مجلد:
+تظهر نسخة البناء داخل مجلد:
 
 ```text
 dist
@@ -39,9 +40,9 @@ dist
 
 ## التحقق
 
-يشمل مسار البناء مزامنة ملفات الموقع المحلية، وتوليد أيقونات أندرويد وشاشة البداية، ثم إنشاء ملف تثبيت موقع بتوقيع الاختبار.
+يشمل مسار البناء مزامنة ملفات الموقع المحلية، وتوليد أيقونات أندرويد وشاشة البداية، ثم إنشاء ملف تثبيت موقع بمفتاح الإصدار الدائم.
 
-> النسخة التجريبية ليست توقيع الإصدار النهائي المخصص للتوزيع الدائم. يُنشأ توقيع الإصدار ويحفظ بأمان بعد اكتمال اختبار الهاتف واعتماد النسخة.
+> يجب الاحتفاظ بنسخة احتياطية آمنة من مفتاح التوقيع وملف خصائصه. يجب توقيع جميع التحديثات المستقبلية بالمفتاح نفسه حتى يقبل أندرويد تثبيتها كتحديث للتطبيق.
 
 </div>
 
@@ -49,9 +50,9 @@ dist
 
 # Android application
 
-## Testing release
+## Official release
 
-Download the latest testing package from the [releases page](https://github.com/mohammedjaferalshouha/jordanian-labour-rights-calculator/releases).
+Download the latest official package from the [releases page](https://github.com/mohammedjaferalshouha/jordanian-labour-rights-calculator/releases).
 
 ## Installation
 
@@ -75,10 +76,11 @@ With a compatible Android and Java environment installed, run:
 ```powershell
 npm install
 npm test
-npm run android:build:debug
+npm run android:signing:create
+npm run android:build:release
 ```
 
-The testing package is created in:
+The built package is created in:
 
 ```text
 dist
@@ -86,6 +88,6 @@ dist
 
 ## Verification
 
-The build synchronizes local web assets, generates Android launcher and splash assets, and creates a package signed with the testing key.
+The build synchronizes local web assets, generates Android launcher and splash assets, and creates a package signed with the permanent release key.
 
-> The testing package does not use the final long-term distribution signature. A securely stored release signature will be created after real-device testing and approval.
+> Keep a secure backup of the signing key and its properties file. Every future update must use the same key so Android accepts it as an update to the installed application.

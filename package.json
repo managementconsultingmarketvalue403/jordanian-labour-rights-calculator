@@ -1,6 +1,6 @@
 {
   "name": "jordanian-labour-rights-calculator",
-  "version": "1.1.0-beta.1",
+  "version": "1.1.0",
   "description": "Bilingual Jordanian labour rights calculator",
   "private": true,
   "license": "MIT",
@@ -9,7 +9,9 @@
     "prepare:android": "node scripts/prepare-android-web.mjs",
     "prepare:site": "node scripts/prepare-site-web.mjs",
     "android:sync": "npm run prepare:android && cap sync android && python scripts/generate-android-assets.py",
-    "android:build:debug": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-android-debug.ps1"
+    "android:build:debug": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-android-debug.ps1",
+    "android:signing:create": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/create-release-signing.ps1",
+    "android:build:release": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-android-release.ps1"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.2",

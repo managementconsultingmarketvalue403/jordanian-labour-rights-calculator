@@ -1,9 +1,9 @@
 # سجل التغييرات
 
-## الإصدار التجريبي 1.1.0 - 2026-07-30
+## الإصدار 1.1.0 - 2026-07-30
 
 - إضافة مشروع أندرويد مستقل مع الاحتفاظ بنسخة الموقع.
-- إنشاء ملف تثبيت تجريبي قابل للتثبيت على أندرويد 7 وما بعده.
+- إنشاء إصدار رسمي موقع قابل للتثبيت على أندرويد 7 وما بعده.
 - إضافة أيقونة متكيفة وشاشة بدء مخصصتين.
 - إضافة بناء محلي قابل للتكرار وفحوصات أندرويد.
 - إضافة صور الهاتف والتوثيق وسياسة الخصوصية.
@@ -24,10 +24,10 @@
 
 # Changelog
 
-## Version 1.1.0 beta - 2026-07-30
+## Version 1.1.0 - 2026-07-30
 
 - Added a standalone Android project while preserving the website.
-- Added an installable testing package for Android 7 and newer.
+- Added an officially signed installable package for Android 7 and newer.
 - Added custom adaptive launcher and splash assets.
 - Added a reproducible local build and Android checks.
 - Added mobile screenshots, Android documentation and a privacy policy.

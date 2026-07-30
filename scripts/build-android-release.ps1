@@ -2,6 +2,16 @@ $ErrorActionPreference = "Stop"
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $junctionPath = Join-Path $env:USERPROFILE "labour-rights-android-build"
+$signingProperties = Join-Path $projectRoot "android\signing.properties"
+$releaseKeystore = Join-Path $projectRoot "android\keystore\labour-rights-release.jks"
+
+if (-not (Test-Path -LiteralPath $signingProperties)) {
+    throw "The release signing properties file is missing."
+}
+
+if (-not (Test-Path -LiteralPath $releaseKeystore)) {
+    throw "The release keystore is missing."
+}
 
 Push-Location $projectRoot
 try {
@@ -27,22 +37,22 @@ try {
     $androidRoot = Join-Path $junctionPath "android"
     Push-Location $androidRoot
     try {
-        & .\gradlew.bat assembleDebug
+        & .\gradlew.bat assembleRelease
         if ($LASTEXITCODE -ne 0) {
-            throw "Android build failed."
+            throw "Android release build failed."
         }
     }
     finally {
         Pop-Location
     }
 
-    $sourceApk = Join-Path $projectRoot "android\app\build\outputs\apk\debug\app-debug.apk"
+    $sourceApk = Join-Path $projectRoot "android\app\build\outputs\apk\release\app-release.apk"
     $distDirectory = Join-Path $projectRoot "dist"
-    $destinationApk = Join-Path $distDirectory "labour-rights-calculator-v1.1.0-debug.apk"
+    $destinationApk = Join-Path $distDirectory "labour-rights-calculator-v1.1.0.apk"
 
     New-Item -ItemType Directory -Path $distDirectory -Force | Out-Null
     Copy-Item -LiteralPath $sourceApk -Destination $destinationApk -Force
-    Write-Output "APK created: $destinationApk"
+    Write-Output "Release APK created: $destinationApk"
 }
 finally {
     Pop-Location
