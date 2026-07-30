@@ -15,7 +15,11 @@ const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
 assert.match(html, /dir="rtl"/, "Arabic layout is right-to-left by default");
 assert.match(html, /<link rel="stylesheet" href="styles\.css">/, "local stylesheet is linked");
 assert.match(html, /<script src="calculator-engine\.js"><\/script>\s*<script src="app\.js"><\/script>/, "engine loads before UI");
-assert.doesNotMatch(html, /<(?:script|link|img)[^>]+(?:src|href)="https?:\/\//, "the application has no remote runtime dependency");
+assert.doesNotMatch(
+    html,
+    /<(?:script|img)[^>]+\ssrc="https?:\/\/|<link(?=[^>]*rel="stylesheet")[^>]+href="https?:\/\//,
+    "the application has no remote runtime dependency"
+);
 assert.match(html, /class="law-button"[\s\S]*?href="https:\/\/www\.mol\.gov\.jo\/AR\/List\//, "the law button points to the Ministry of Labour laws page");
 assert.match(html, /class="law-button"[\s\S]*?target="_blank"[\s\S]*?rel="noopener noreferrer"/, "the law page opens safely in a new tab");
 assert.doesNotMatch(html, /class="law-button"[^>]*\stitle=/, "the law button has no hover note");

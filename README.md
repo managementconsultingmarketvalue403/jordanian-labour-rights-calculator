@@ -4,6 +4,8 @@
 
 حاسبة ثنائية اللغة لحساب مجموعة من الحقوق العمالية بصورة استرشادية وفق قانون العمل الأردني رقم 8 لسنة 1996 وتعديلاته. صُممت لتعمل مباشرة في المتصفح بواجهة عربية من اليمين إلى اليسار، وواجهة إنجليزية كاملة، ومن دون حساب مستخدم أو إرسال البيانات إلى خادم.
 
+[فتح الحاسبة المنشورة](https://jordanian-labour-rights-calculator.netlify.app/)
+
 ![واجهة الحاسبة العربية](docs/screenshots/desktop-ar.png)
 
 ## المزايا
@@ -91,6 +93,8 @@ node tests/ui-structure.test.js
 # Jordanian Labour Rights Calculator
 
 A bilingual, browser-based calculator that provides indicative calculations for selected employment rights under Jordanian Labour Law No. 8 of 1996 and its amendments. It includes a complete Arabic right-to-left interface and an English interface, requires no user account, and performs calculations locally in the browser.
+
+[Open the live calculator](https://jordanian-labour-rights-calculator.netlify.app/)
 
 ![Arabic calculator interface](docs/screenshots/desktop-ar.png)
 
